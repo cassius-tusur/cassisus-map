@@ -208,15 +208,19 @@ namespace Map.Core.Tests.Generation
         }
 
         [Fact]
-        public void ApplyTo_RejectsDuplicatePlotIds()
+        public void ApplyTo_UsesCanonicalPlotElementWhenDuplicateIdIsRejected()
         {
             var first = new FixedIdElement(Guid.Parse("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"), ElemType.Location);
             var second = new FixedIdElement(first.Id, ElemType.Location);
             var plot = new Plot();
             plot.Add(first);
-            plot.Elements.Add(second);
+            Assert.False(plot.Elements.Add(second));
+            var snapshot = Snapshot(first.Id, new GridPosition(0, 0));
 
-            Assert.Throws<InvalidOperationException>(() => new MapGenerationResult(Snapshot(first.Id, new GridPosition(0, 0))).ApplyTo(plot));
+            new MapGenerationResult(snapshot).ApplyTo(plot);
+
+            Assert.Equal(new GridPosition(0, 0), first.Params[MapParams.For(snapshot.MapId).Position]);
+            Assert.Empty(second.Params.Keys);
         }
 
         private sealed class FixedIdElement : BaseClasses.Interface.IElement
