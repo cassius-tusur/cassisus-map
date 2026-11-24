@@ -26,5 +26,8 @@
     <ProjectReference Include="../Map.Core/Map.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+    <ProjectReference Include="../Map.Core.Demo/Map.Core.Demo.csproj" />
+  </ItemGroup>
 
 </Project>

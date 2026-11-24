@@ -46,9 +46,10 @@ namespace Map.Core.Tests.Architecture
                 if (Directory.Exists(coreDirectory))
                 {
                     var demoDirectory = Path.Combine(directory.FullName, "Map.Core.Demo");
-                    return Directory.Exists(demoDirectory)
-                        ? EnumerateProductionSources(coreDirectory).Concat(EnumerateProductionSources(demoDirectory))
-                        : EnumerateProductionSources(coreDirectory);
+                    if (!Directory.Exists(demoDirectory))
+                        throw new DirectoryNotFoundException(
+                            $"Could not locate the Map.Core.Demo source directory from '{AppContext.BaseDirectory}'.");
+                    return EnumerateProductionSources(coreDirectory).Concat(EnumerateProductionSources(demoDirectory));
                 }
 
                 directory = directory.Parent;
