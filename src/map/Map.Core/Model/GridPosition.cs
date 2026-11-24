@@ -1,3 +1,5 @@
+using MessagePack;
+
 namespace Map.Core.Model
 {
     /// <summary>
@@ -6,5 +8,6 @@ namespace Map.Core.Model
     /// <param name="X">The zero-based horizontal coordinate.</param>
     /// <param name="Y">The zero-based vertical coordinate.</param>
     /// <seealso cref="MapDimensions"/>
-    public readonly record struct GridPosition(int X, int Y);
+    [MessagePackObject]
+    public readonly record struct GridPosition([property: Key(0)] int X, [property: Key(1)] int Y);
 }
