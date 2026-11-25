@@ -1,13 +1,15 @@
 using System;
+using MessagePack;
 
 namespace Map.Core.Model
 {
     /// <summary>
     /// Identifies a biome by its stable string value.
     /// </summary>
+    [MessagePackObject]
     public readonly record struct BiomeId
     {
-        public string Value { get; }
+        [Key(0)] public string Value { get; }
 
         /// <summary>
         /// Initializes a new instance of <see cref="BiomeId"/>.
