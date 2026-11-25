@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../../external/BaseClasses/src/base/BaseClasses/BaseClasses.csproj" />
+    <ProjectReference Include="../../external/BaseClasses/src/BaseClasses/BaseClasses.csproj" />
     <PackageReference Include="MessagePack" Version="3.1.12" />
   </ItemGroup>
 

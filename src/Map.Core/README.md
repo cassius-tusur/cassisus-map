@@ -150,7 +150,7 @@ Core не открывает файлы и не выбирает место хр
 `Map.Core.Demo` — минимальный .NET-хост без Unity. Он генерирует полный v1 snapshot (cells, decorations, placements и roads), проверяет его, записывает MessagePack, читает эти же байты, повторно проверяет восстановленный snapshot и сравнивает все данные, включая точки путей дорог.
 
 ```bash
-dotnet run --project src/map/Map.Core.Demo/Map.Core.Demo.csproj -- /tmp/ang-gpo-map-v1.msgpack
+dotnet run --project src/Map.Core.Demo/Map.Core.Demo.csproj -- /tmp/ang-gpo-map-v1.msgpack
 ```
 
 Единственный необязательный аргумент — путь результата `.msgpack`; без него demo использует временный файл `map-core-demo-v1.msgpack`. В summary выводятся путь, размер бинарного payload и количество cells, decorations, placements и roads. Для сохранения и загрузки используйте только MessagePack v1.
@@ -227,11 +227,11 @@ value:  road-id (Guid)
 При изменении Core сначала определите, затрагивает ли оно данные snapshot. Для несовместимого поведения добавляйте версию алгоритма и тесты, а не меняйте `v1` молча. Затем проверьте оба target framework и обновите Unity DLL:
 
 ```bash
-dotnet test src/map/Map.Core.Tests/Map.Core.Tests.csproj --framework net8.0
-dotnet restore src/map/Map.Core/Map.Core.csproj -p:TargetFramework=netstandard2.1 -m:1
-dotnet build src/base/BaseClasses/BaseClasses.csproj --framework netstandard2.1 -p:LangVersion=latest
+dotnet test src/Map.Core.Tests/Map.Core.Tests.csproj --framework net8.0
+dotnet restore src/Map.Core/Map.Core.csproj -p:TargetFramework=netstandard2.1 -m:1
+dotnet build src/BaseClasses/BaseClasses.csproj --framework netstandard2.1 -p:LangVersion=latest
 dotnet build src/LocationGenerator/LocationGenerator.csproj --framework netstandard2.1 -p:LangVersion=latest
-dotnet build src/map/Map.Core/Map.Core.csproj --framework netstandard2.1 -p:LangVersion=latest
+dotnet build src/Map.Core/Map.Core.csproj --framework netstandard2.1 -p:LangVersion=latest
 ```
 
 ## Полный workflow и Unity smoke test
